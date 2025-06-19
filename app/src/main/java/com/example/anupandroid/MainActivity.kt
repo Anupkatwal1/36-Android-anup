@@ -52,7 +52,10 @@ fun LoginSignUpApp() {
     }
 }
 @Composable
-fun LoginScreen(onSwitchToSignUp: () -> Unit) {
+fun LoginScreen(
+    onSwitchToSignUp: () -> Unit,
+    onForgotPassword: () -> Unit
+) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
@@ -95,6 +98,10 @@ fun LoginScreen(onSwitchToSignUp: () -> Unit) {
 
         TextButton(onClick = onSwitchToSignUp) {
             Text("Don't have an account? Sign Up")
+        }
+
+        TextButton(onClick = onForgotPassword) {
+            Text("Forgot Password?")
         }
     }
 }
