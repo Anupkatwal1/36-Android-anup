@@ -33,7 +33,54 @@ fun LoginSignUpApp() {
     ) {
         if (isLogin) {
             LoginScreen { isLogin = false }
+        }
+    }
+}
 
+@Composable
+fun LoginScreen(onSwitchToSignUp: () -> Unit) {
+    var email by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(32.dp),
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(text = "Login", style = MaterialTheme.typography.headlineSmall)
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text("Password") },
+            visualTransformation = PasswordVisualTransformation(),
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = {
+            // TODO: Handle login logic
+        }, modifier = Modifier.fillMaxWidth()) {
+            Text("Login")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        TextButton(onClick = onSwitchToSignUp) {
+            Text("Don't have an account? Sign Up")
         }
     }
 }
