@@ -25,18 +25,32 @@ class MainActivity : ComponentActivity() {
 }
 @Composable
 fun LoginSignUpApp() {
-    var isLogin by remember { mutableStateOf(true) }
+    var currentScreen by remember { mutableStateOf("login") }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        if (isLogin) {
-            LoginScreen { isLogin = false }
+        when (currentScreen) {
+            "login" -> {
+                LoginScreen(
+                    onSwitchToSignUp = { currentScreen = "signup" },
+                    onForgotPassword = { currentScreen = "reset" }
+                )
+            }
+            "signup" -> {
+                SignUpScreen(
+                    onSwitchToLogin = { currentScreen = "login" }
+                )
+            }
+            "reset" -> {
+                ResetPasswordScreen(
+                    onBackToLogin = { currentScreen = "login" }
+                )
+            }
         }
     }
 }
-
 @Composable
 fun LoginScreen(onSwitchToSignUp: () -> Unit) {
     var email by remember { mutableStateOf("") }
