@@ -59,7 +59,8 @@ fun AppRoot() {
 @Composable
 fun LoginScreen(
     onSwitchToSignUp: () -> Unit,
-    onForgotPassword: () -> Unit
+    onForgotPassword: () -> Unit,
+    onLoginSuccess: () -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -71,6 +72,7 @@ fun LoginScreen(
         verticalArrangement = Arrangement.Center
     ) {
         Text(text = "Login", style = MaterialTheme.typography.headlineSmall)
+
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
@@ -93,9 +95,13 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = {
-            // TODO: Handle login logic
-        }, modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = {
+                // TODO: Validate login
+                onLoginSuccess()
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text("Login")
         }
 
