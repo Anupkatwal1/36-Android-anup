@@ -221,6 +221,77 @@ fun SignUpScreen(onSwitchToLogin: () -> Unit) {
     }
 }
 @Composable
+fun CrudScreen() {
+    var itemList by remember { mutableStateOf(listOf<String>()) }
+    var inputText by remember { mutableStateOf("") }
+    var editIndex by remember { mutableStateOf(-1) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        OutlinedTextField(
+            value = inputText,
+            onValueChange = { inputText = it },
+            label = { Text(if (editIndex == -1) "Enter item" else "Edit item") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        Button(
+            onClick = {
+                if (inputText.isNotBlank()) {
+                    if (editIndex == -1) {
+                        itemList = itemList + inputText
+                    } else {
+                        itemList = itemList.toMutableList().also {
+                            it[editIndex] = inputText
+                        }
+                        editIndex = -1
+                    }
+                    inputText = ""
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Text(if (editIndex == -1) "Add" else "Update")
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        LazyColumn {
+            itemsIndexed(itemList) { index, item ->
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 4.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
+                    Text(text = item, style = MaterialTheme.typography.bodyLarge)
+
+                    Row {
+                        TextButton(onClick = {
+                            inputText = item
+                            editIndex = index
+                        }) {
+                            Text("Edit")
+                        }
+                        TextButton(onClick = {
+                            itemList = itemList.toMutableList().also {
+                                it.removeAt(index)
+                            }
+                        }) {
+                            Text("Delete")
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@Composable
 fun PreviewApp() {
     MaterialTheme {
         LoginSignUpApp()
