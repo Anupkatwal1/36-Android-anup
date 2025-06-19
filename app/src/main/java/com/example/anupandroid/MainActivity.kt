@@ -18,13 +18,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MaterialTheme {
-                LoginSignUpApp()
+                AppRoot()
             }
         }
     }
 }
+
 @Composable
-fun LoginSignUpApp() {
+fun AppRoot() {
     var currentScreen by remember { mutableStateOf("login") }
 
     Surface(
@@ -35,7 +36,8 @@ fun LoginSignUpApp() {
             "login" -> {
                 LoginScreen(
                     onSwitchToSignUp = { currentScreen = "signup" },
-                    onForgotPassword = { currentScreen = "reset" }
+                    onForgotPassword = { currentScreen = "reset" },
+                    onLoginSuccess = { currentScreen = "crud" }
                 )
             }
             "signup" -> {
@@ -47,6 +49,9 @@ fun LoginSignUpApp() {
                 ResetPasswordScreen(
                     onBackToLogin = { currentScreen = "login" }
                 )
+            }
+            "crud" -> {
+                CrudScreen()
             }
         }
     }
@@ -142,6 +147,8 @@ fun ResetPasswordScreen(onBackToLogin: () -> Unit) {
         }
     }
 }
+
+
 @Composable
 fun SignUpScreen(onSwitchToLogin: () -> Unit) {
     var email by remember { mutableStateOf("") }
