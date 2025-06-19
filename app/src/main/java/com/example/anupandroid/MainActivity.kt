@@ -154,7 +154,6 @@ fun ResetPasswordScreen(onBackToLogin: () -> Unit) {
     }
 }
 
-
 @Composable
 fun SignUpScreen(onSwitchToLogin: () -> Unit) {
     var email by remember { mutableStateOf("") }
@@ -168,6 +167,7 @@ fun SignUpScreen(onSwitchToLogin: () -> Unit) {
         verticalArrangement = Arrangement.Center
     ) {
         Text(text = "Sign Up", style = MaterialTheme.typography.headlineSmall)
+
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(
@@ -200,13 +200,16 @@ fun SignUpScreen(onSwitchToLogin: () -> Unit) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Button(onClick = {
-            if (password == confirmPassword) {
-                // TODO: Handle sign-up logic
-            } else {
-                // TODO: Show error (e.g. Snackbar or Toast)
-            }
-        }, modifier = Modifier.fillMaxWidth()) {
+        Button(
+            onClick = {
+                if (password == confirmPassword) {
+                    // TODO: Handle sign-up
+                } else {
+                    // TODO: Show error
+                }
+            },
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Text("Sign Up")
         }
 
@@ -217,7 +220,6 @@ fun SignUpScreen(onSwitchToLogin: () -> Unit) {
         }
     }
 }
-@Preview(showBackground = true)
 @Composable
 fun PreviewApp() {
     MaterialTheme {
