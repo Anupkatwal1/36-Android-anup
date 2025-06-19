@@ -146,3 +146,10 @@ fun SignUpScreen(onSwitchToLogin: () -> Unit) {
         }
     }
 }
+@Preview(showBackground = true)
+@Composable
+fun PreviewApp() {
+    MaterialTheme {
+        LoginSignUpApp()
+    }
+}
