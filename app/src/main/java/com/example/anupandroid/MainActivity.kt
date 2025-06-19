@@ -106,6 +106,43 @@ fun LoginScreen(
     }
 }
 @Composable
+fun ResetPasswordScreen(onBackToLogin: () -> Unit) {
+    var email by remember { mutableStateOf("") }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(32.dp),
+        verticalArrangement = Arrangement.Center
+    ) {
+        Text(text = "Reset Password", style = MaterialTheme.typography.headlineSmall)
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text("Email") },
+            modifier = Modifier.fillMaxWidth(),
+            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Button(onClick = {
+            // TODO: Handle sending reset link
+        }, modifier = Modifier.fillMaxWidth()) {
+            Text("Send Reset Link")
+        }
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        TextButton(onClick = onBackToLogin) {
+            Text("Back to Login")
+        }
+    }
+}
+@Composable
 fun SignUpScreen(onSwitchToLogin: () -> Unit) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
